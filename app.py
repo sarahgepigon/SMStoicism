@@ -10,11 +10,15 @@ from twilio.rest import Client
 # https://realpython.com/api-integration-in-python/
 
 #get all Stoicism quotes from this list of dictionaries
+print("Getting philosophy quotes.")
+
 resp = requests.get('https://philosophy-quotes-api.glitch.me/quotes/philosophy/Stoicism')
 
 if resp.status_code != 200:
 	#This means something went wrong. 
 	raise ApiError('GET /Stoicism {}'.format(resp.status_code))
+
+print("Received (philosophy quotes).")
 
 #pick single quote from API response
 
@@ -26,6 +30,8 @@ text_message = '"{}" - {}'.format(random_dictionary['quote'], random_dictionary[
 # send a quote to my phone via Twilio
 
 #"Send an outbound SMS with Python" https://www.twilio.com/docs/sms/quickstart/python#install-python-and-the-twilio-helper-library
+
+print("Sending text message...")
 
 account_sid = os.environ['TWILIO_ACCOUNT_SID']
 auth_token = os.environ['TWILIO_AUTH_TOKEN']
@@ -41,3 +47,4 @@ message = client.messages \
 					to=my_phone_number
 					)
 
+print("Received (text message).")
